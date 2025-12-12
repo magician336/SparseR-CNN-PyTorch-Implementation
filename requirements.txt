@@ -1,0 +1,11 @@
+# 最小依赖（根据你的 Python/PyTorch 版本适配）
+# 推荐先根据 https://pytorch.org/get-started/locally/ 安装匹配 CUDA 的 torch/torchvision
+# 若已装好 torch/torchvision，可注释掉这两行
+# torch
+# torchvision
+
+Pillow
+opencv-python
+numpy
+detectron2
+scipy
