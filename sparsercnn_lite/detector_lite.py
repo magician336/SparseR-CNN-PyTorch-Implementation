@@ -46,9 +46,21 @@ class BackboneFPNLite(nn.Module):
 
 
 class SparseRCNNLite(nn.Module):
-    def __init__(self, cfg: SparseRCNNLiteCfg = None):
+    def __init__(self, cfg: Any = None, num_classes: int = None):
         super().__init__()
-        self.cfg = cfg or default_sparsercnn_cfg()
+        if cfg is None or hasattr(cfg, 'pixel_mean'):
+            self.cfg = cfg or default_sparsercnn_cfg()
+            if num_classes is not None:
+                self.cfg.num_classes = num_classes
+        else:
+            # detectron2 cfg
+            lite_cfg = default_sparsercnn_cfg()
+            lite_cfg.pixel_mean = cfg.MODEL.PIXEL_MEAN
+            lite_cfg.pixel_std = cfg.MODEL.PIXEL_STD
+            lite_cfg.num_classes = cfg.MODEL.ROI_HEADS.NUM_CLASSES
+            if num_classes is not None:
+                lite_cfg.num_classes = num_classes
+            self.cfg = lite_cfg
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.pixel_mean = torch.tensor(self.cfg.pixel_mean, dtype=torch.float32).view(1, 3, 1, 1)
         self.pixel_std = torch.tensor(self.cfg.pixel_std, dtype=torch.float32).view(1, 3, 1, 1)
@@ -73,6 +85,31 @@ class SparseRCNNLite(nn.Module):
                                           eos_coef=self.cfg.no_object_weight, use_focal=self.cfg.use_focal)
         self.to(self.device)
 
+    def forward(self, batched_inputs):
+        if isinstance(batched_inputs, list) and len(batched_inputs) > 0 and isinstance(batched_inputs[0], dict) and "image" in batched_inputs[0]:
+            # detectron2 style
+            images = [x["image"] for x in batched_inputs]
+            if self.training:
+                targets = []
+                for x in batched_inputs:
+                    inst = x["instances"]
+                    targets.append({
+                        "boxes": inst.gt_boxes.tensor.to(self.device),
+                        "labels": inst.gt_classes.to(self.device)
+                    })
+                return self._forward(images, targets)
+            else:
+                preds = self._forward(images)
+                from detectron2.structures import Instances
+                results = []
+                for pred in preds:
+                    inst = Instances(image_size=batched_inputs[0]["image"].shape[-2:], **pred)
+                    results.append({"instances": inst})
+                return results
+        else:
+            # original style
+            return self._forward(batched_inputs, None)
+
     def normalize(self, x):
         mean = self.pixel_mean.to(x.device)
         std = self.pixel_std.to(x.device)
@@ -88,7 +125,7 @@ class SparseRCNNLite(nn.Module):
             return x
         return F.pad(x, (0, pad_w, 0, pad_h))
 
-    def forward(self, images: List[torch.Tensor], targets: List[Dict[str, torch.Tensor]] = None):
+    def _forward(self, images: List[torch.Tensor], targets: List[Dict[str, torch.Tensor]] = None):
         # images: list of [C,H,W] in [0,1]
         device = self.device
         images = [img.to(device) for img in images]

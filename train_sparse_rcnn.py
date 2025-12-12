@@ -10,6 +10,7 @@ from detectron2.evaluation import COCOEvaluator
 
 sys.path.append(os.path.dirname(__file__))
 from data_synth import SynthRectDataset
+import sparsercnn_lite
 
 
 def register_datasets(data_root):
@@ -22,11 +23,13 @@ def register_datasets(data_root):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data-root", type=str, default="personal/data")
-    parser.add_argument("--epochs", type=int, default=1)
+    parser.add_argument("--data-root", type=str, default="data")
+    parser.add_argument("--max-iter", type=int, default=1000)
     parser.add_argument("--batch-size", type=int, default=2)
     parser.add_argument("--lr", type=float, default=5e-4)
-    parser.add_argument("--output-dir", type=str, default="personal/outputs")
+    parser.add_argument("--output-dir", type=str, default="outputs")
+    parser.add_argument("--num-classes", type=int, default=1)
+    parser.add_argument("--num-proposals", type=int, default=50)
     args = parser.parse_args()
 
     os.makedirs(args.output_dir, exist_ok=True)
@@ -36,11 +39,12 @@ def main():
 
     # Load config
     cfg = get_cfg()
-    cfg.merge_from_file("personal/config_lite.yaml")
+    cfg.merge_from_file("config_lite.yaml")
     cfg.OUTPUT_DIR = args.output_dir
     cfg.SOLVER.IMS_PER_BATCH = args.batch_size
     cfg.SOLVER.BASE_LR = args.lr
-    cfg.SOLVER.MAX_ITER = args.epochs * 100  # Approximate epochs to iterations
+    cfg.SOLVER.MAX_ITER = args.max_iter
+    cfg.MODEL.ROI_HEADS.NUM_CLASSES = args.num_classes
 
     # Train
     trainer = DefaultTrainer(cfg)
