@@ -79,7 +79,24 @@ class SetCriterionLite(nn.Module):
                       (1 - alpha) * prob ** gamma * (1 - labels) * (1 - prob + 1e-8).log()).sum() / num_boxes
             return {'loss_ce': loss}
         else:
-            loss_ce = F.cross_entropy(src_logits.transpose(1, 2), target_classes, self.empty_weight)
+            # Ensure class weight length matches current number of classes
+            logits_t = src_logits.transpose(1, 2)
+            # logits_t shape: [N, C, Q] where C is num classes
+            num_classes = logits_t.shape[1]
+            if hasattr(self, 'empty_weight') and self.empty_weight is not None:
+                if self.empty_weight.numel() != num_classes:
+                    # Resize weights to match number of classes
+                    new_weight = torch.ones(num_classes, device=logits_t.device, dtype=logits_t.dtype)
+                    # If previous weights exist, copy min(len, num_classes)
+                    copy_len = min(self.empty_weight.numel(), num_classes)
+                    new_weight[:copy_len] = self.empty_weight[:copy_len].to(new_weight)
+                    self.empty_weight = new_weight
+                else:
+                    self.empty_weight = self.empty_weight.to(logits_t.device, dtype=logits_t.dtype)
+            else:
+                self.empty_weight = torch.ones(num_classes, device=logits_t.device, dtype=logits_t.dtype)
+
+            loss_ce = F.cross_entropy(logits_t, target_classes, self.empty_weight)
             return {'loss_ce': loss_ce}
 
     def loss_boxes(self, outputs, targets, indices, num_boxes):

@@ -19,6 +19,8 @@ pip install -r requirements.txt
 主要依赖：`torch`, `torchvision`, `Pillow`, `opencv-python`, `numpy`, `scipy`。
 如需使用 Detectron2 版，请另外安装 `detectron2` 及其依赖。
 
+注意：如果你使用 conda 环境（推荐），请在对应环境内运行下述命令；否则可能出现依赖/版本不一致。
+
 ---
 
 ## Lite 版本（纯 PyTorch）
@@ -41,26 +43,35 @@ python data_synth.py `
 
 ### 训练（Lite）
 
-- 纯 PyTorch 训练脚本：`lite/train_lite.py`
+- 纯 PyTorch 训练脚本：`train_lite.py`
 
-示例：
 ```powershell
 python train_lite.py `
   --data-root data `
   --output-dir outputs `
-  --epochs 5 `
-  --batch-size 2 `
+  --epochs 20 `
+  --batch-size 4 `
   --lr 5e-4 `
-  --num-classes 1 `
+  --num-classes 2 `
   --num-proposals 50 `
-  --num-workers 2
+  --num-workers 8 `
+  --csv-every 50
 ```
 
-训练完成后，会在 `outputs/model_final.pth` 保存权重（字典包含键 `model`），与 Lite 推理脚本兼容。
+参数解析：
+- --data-root data：数据目录（合成数据/npz 所在根目录）。
+- --output-dir outputs：输出目录（模型权重、日志 CSV 等）。
+- --epochs 20：训练轮数；每个 epoch 通常遍历一遍训练集。一次epochs大约4分30秒。
+- --batch-size 2：每次迭代同时训练的图片数；越大越吃显存/越可能更快且更稳。
+- --lr 5e-4：学习率；影响收敛速度与稳定性。
+- --num-classes 2：类别数（按你当前实现/日志，包含背景类时会影响分类头输出维度与 loss）。
+- --num-proposals 50：每张图的 proposal/query 数；越大越慢、越吃显存，但可能更准。
+- --num-workers 2：DataLoader 子进程数；太小会让 GPU 等数据，太大会导致 CPU/内存压力与抖动。
+- --csv-every 50：每隔 50 个 iter 记录一次到 loss_log.csv（减少 IO）。
 
 ### 推理（Lite）
 
-- 根目录 Lite 推理入口：`infer_sparse_rcnn.py`
+- 根目录 Lite 推理入口：`infer_lite.py`
 
 示例：
 ```powershell
@@ -69,8 +80,14 @@ python infer_lite.py `
   --output outputs/infer_vis_lite.jpg `
   --score-thr 0.6 `
   --weights outputs/model_final.pth `
-  --num-classes 1
+  --num-classes 2
 ```
+
+推理常用参数：
+- `--skip-bg-filter`：不按背景标签过滤（用于排查“无检测”还是“被过滤”）
+- `--nms-iou`：NMS IoU 阈值（<=0 关闭），用于减少大量重叠框
+- `--max-dets`：最多保留多少个框
+- `--min-size`：过滤过小的框（像素）
 
 常见问题：
 - 若输出图像与输入一模一样，多为“检测结果为空”。可尝试：
@@ -78,6 +95,19 @@ python infer_lite.py `
   - 使用合成数据中的图像或包含矩形的测试图像
   - 确认训练与推理的 `--num-classes` 一致
 - 若加载权重报尺寸不匹配，确认训练时的类别数与推理一致。
+
+如果你看到“框很多且每个都是 rect:1.00”，通常表示分类分数退化或后处理不足。可先开启 NMS/限制数量：
+```powershell
+python infer_lite.py `
+  --image sample.jpg `
+  --output outputs/infer_vis_lite.jpg `
+  --score-thr 0.6 `
+  --weights outputs/model_final.pth `
+  --num-classes 2 `
+  --nms-iou 0.5 `
+  --max-dets 50 `
+  --min-size 4
+```
 
 ---
 
@@ -143,7 +173,7 @@ python infer_sparse_d2.py `
 - `sparsercnn_lite/`：Lite 模型实现（核心模块）
 - `data_synth.py`：合成数据生成脚本
 - `train_lite.py`：纯 PyTorch 训练
-- `infer_sparse_rcnn.py`：Lite 推理入口（根目录）
+- `infer_lite.py`：Lite 推理入口（根目录）
 - `infer_sparse_d2.py`：Detectron2 推理入口（根目录）
 - `train_sparse_d2.py`：Detectron2 训练入口（根目录）
 - `config_lite.yaml`：Lite 默认配置

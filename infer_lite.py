@@ -19,7 +19,7 @@ def main():
     parser.add_argument("--weights", default=None, help="Path to lite Sparse R-CNN weights .pth")
     parser.add_argument("--score-thr", type=float, default=0.5)
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
-    parser.add_argument("--num-classes", type=int, default=1)
+    parser.add_argument("--num-classes", type=int, default=2)
     parser.add_argument("--skip-bg-filter", action="store_true", help="Do not filter background class labels")
     parser.add_argument("--nms-iou", type=float, default=0.5, help="Apply NMS with this IoU threshold (<=0 to disable)")
     parser.add_argument("--max-dets", type=int, default=50, help="Maximum number of detections to keep after NMS")

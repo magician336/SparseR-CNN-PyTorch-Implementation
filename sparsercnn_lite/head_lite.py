@@ -16,7 +16,11 @@ class DynamicHeadLite(nn.Module):
         super().__init__()
         self.cfg = cfg
         d_model = cfg.hidden_dim
-        num_classes = cfg.num_classes - 1 if not cfg.use_focal else cfg.num_classes
+        # Convention in this repo:
+        # - cfg.num_classes is TOTAL classes including the last "no-object/background" index
+        # - softmax branch predicts all classes including background (C = cfg.num_classes)
+        # - focal branch predicts only foreground classes (C = cfg.num_classes - 1)
+        num_classes = (cfg.num_classes - 1) if cfg.use_focal else cfg.num_classes
 
         dim_feedforward = cfg.dim_feedforward
         nhead = cfg.nheads
@@ -33,17 +37,21 @@ class DynamicHeadLite(nn.Module):
         if self.use_focal:
             prior_prob = cfg.prior_prob
             self.bias_value = -math.log((1 - prior_prob) / prior_prob)
-        self._reset_parameters()
+        self._reset_parameters(num_classes)
 
         self.pooler_resolution = cfg.pooler_resolution
         self.feature_stride = cfg.feature_stride
 
-    def _reset_parameters(self):
+    def _reset_parameters(self, num_classes: int):
+        # Default Xavier init for weights
         for p in self.parameters():
             if p.dim() > 1:
                 nn.init.xavier_uniform_(p)
-            if self.use_focal and p.shape[-1] == self.num_classes:
-                nn.init.constant_(p, self.bias_value)
+        # For focal classification, set classification bias to prior prob
+        if self.use_focal:
+            for head in self.head_series:
+                if hasattr(head, "class_logits") and head.class_logits.bias is not None and head.class_logits.bias.shape[0] == num_classes:
+                    nn.init.constant_(head.class_logits.bias, self.bias_value)
 
     def _roi_pool(self, feat: Tensor, boxes: Tensor) -> Tensor:
         # boxes: (N, nr_boxes, 4) absolute in pixels
@@ -117,10 +125,8 @@ class RCNNHeadLite(nn.Module):
         self.reg_module = nn.Sequential(*reg_module)
 
         self.use_focal = cfg.use_focal
-        if self.use_focal:
-            self.class_logits = nn.Linear(d_model, cfg.num_classes)
-        else:
-            self.class_logits = nn.Linear(d_model, cfg.num_classes)  # background handled via softmax last class
+        # Use provided num_classes: for softmax, it should include background; for focal, exact number of foreground classes
+        self.class_logits = nn.Linear(d_model, num_classes)
         self.bboxes_delta = nn.Linear(d_model, 4)
         self.scale_clamp = scale_clamp
         self.bbox_weights = bbox_weights
