@@ -4,7 +4,7 @@
 - 轻量版（Lite）：纯 PyTorch 运行与训练，最小依赖、便于快速上手。
 - Detectron2 版（D2）：贴近原版的完整流程与配置，适合更丰富的功能与扩展。
 
-下文给出两种方式的独立运行指南与常见问题说明，不改变当前目录结构与脚本入口。
+本文档基于当前文件结构给出两种方式的独立运行指南与常见问题说明，不改变现有脚本入口。
 
 ## 环境准备
 
@@ -16,7 +16,8 @@
 pip install -r requirements.txt
 ```
 
-主要依赖：`torch`, `torchvision`, `Pillow`, `opencv-python`, `numpy`, `scipy`，D2 版还需安装 `detectron2` 及其依赖。
+主要依赖：`torch`, `torchvision`, `Pillow`, `opencv-python`, `numpy`, `scipy`。
+如需使用 Detectron2 版，请另外安装 `detectron2` 及其依赖。
 
 ---
 
@@ -40,13 +41,11 @@ python data_synth.py `
 
 ### 训练（Lite）
 
-可使用以下两种脚本之一进行 Lite 训练：
-- 简单演示训练脚本：`train.py`
-- 纯 PyTorch训练脚本：`lite/train_lite.py`
+- 纯 PyTorch 训练脚本：`lite/train_lite.py`
 
-示例（推荐使用纯 PyTorch脚本）：
+示例：
 ```powershell
-python lite/train_lite.py `
+python train_lite.py `
   --data-root data `
   --output-dir outputs `
   --epochs 5 `
@@ -57,17 +56,15 @@ python lite/train_lite.py `
   --num-workers 2
 ```
 
-训练完成后，会在 `outputs/model_final.pth` 保存权重（包含键 `model`），与推理脚本兼容。
+训练完成后，会在 `outputs/model_final.pth` 保存权重（字典包含键 `model`），与 Lite 推理脚本兼容。
 
 ### 推理（Lite）
 
-可使用以下两种入口之一进行 Lite 推理：
-- `infer_sparse_rcnn.py`（根目录）
-- `lite/infer.py`（包装根目录推理入口）
+- 根目录 Lite 推理入口：`infer_sparse_rcnn.py`
 
 示例：
 ```powershell
-python infer_sparse_rcnn.py `
+python infer_lite.py `
   --image sample.jpg `
   --output outputs/infer_vis_lite.jpg `
   --score-thr 0.6 `
@@ -145,11 +142,10 @@ python infer_sparse_d2.py `
 
 - `sparsercnn_lite/`：Lite 模型实现（核心模块）
 - `data_synth.py`：合成数据生成脚本
-- `train.py`：演示版训练（Lite）
-- `lite/train_lite.py`：纯 PyTorch 训练（Lite）
-- `infer_sparse_rcnn.py`：Lite 推理（根目录入口）
-- `infer_sparse_d2.py`：Detectron2 推理入口
-- `train_sparse_d2.py`：Detectron2 训练入口
+- `train_lite.py`：纯 PyTorch 训练
+- `infer_sparse_rcnn.py`：Lite 推理入口（根目录）
+- `infer_sparse_d2.py`：Detectron2 推理入口（根目录）
+- `train_sparse_d2.py`：Detectron2 训练入口（根目录）
 - `config_lite.yaml`：Lite 默认配置
 - `requirements.txt`：依赖列表
 

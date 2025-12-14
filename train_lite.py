@@ -20,10 +20,29 @@ def collate_fn(batch: Tuple):
 
 
 def build_dataloader(data_root: str, split: str, batch_size: int, num_workers: int = 2):
-    ds = SynthRectDataset(data_root, split=split, transform=T.ToTensor())
+    # SynthRectDataset does not accept a transform argument; convert to tensor later
+    ds = SynthRectDataset(data_root, split=split)
     loader = DataLoader(ds, batch_size=batch_size, shuffle=(split == "train"),
                         num_workers=num_workers, collate_fn=collate_fn)
     return loader
+
+
+def _to_tensor_image(x):
+    # Convert dataset image to torch tensor in [0,1], shape [C,H,W]
+    if isinstance(x, torch.Tensor):
+        return x.float()
+    try:
+        return T.ToTensor()(x)
+    except Exception:
+        import numpy as np
+        if isinstance(x, np.ndarray):
+            t = torch.from_numpy(x)
+            if t.ndim == 2:
+                t = t.unsqueeze(0)
+            elif t.ndim == 3:
+                t = t.permute(2, 0, 1)
+            return t.float() / 255.0
+        raise
 
 
 def train_one_epoch(model: SparseRCNNLite, optimizer: torch.optim.Optimizer,
@@ -31,7 +50,7 @@ def train_one_epoch(model: SparseRCNNLite, optimizer: torch.optim.Optimizer,
     model.train()
     running = 0.0
     for i, (images, targets) in enumerate(data_loader):
-        images = [img.to(device) for img in images]
+        images = [_to_tensor_image(img).to(device) for img in images]
         targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 
         loss_dict = model._forward(images, targets)
