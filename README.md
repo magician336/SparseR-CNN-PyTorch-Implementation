@@ -44,7 +44,7 @@ python data_synth.py `
 ### 训练（Lite）
 
 - 纯 PyTorch 训练脚本：`train_lite.py`
-> 已将no_object_weight由0.1设置为1.0
+> 已将no_object_weight由0.1设置为0.2
 > 添加学习率衰减
 
 ```powershell
@@ -82,7 +82,9 @@ python infer_lite.py `
   --output outputs/infer_vis_lite.jpg `
   --score-thr 0.6 `
   --weights outputs/model_final.pth `
-  --num-classes 2
+  --num-classes 2 `
+  --num-proposals 50 `
+  --nms-iou 0.1
 ```
 
 推理常用参数：
@@ -109,6 +111,26 @@ python infer_lite.py `
   --nms-iou 0.5 `
   --max-dets 50 `
   --min-size 4
+```
+
+---
+
+## 过拟合脚本
+```powershell
+# 1. 先生成一个小型的过拟合数据集 (仅10张图)
+python data_synth.py --make-data --out data_debug --num-train 10 --num-val 2
+
+# 2. 针对这 10 张图进行疯狂训练 (500轮，让它背下来)
+# 注意：这里 num-proposals 设为 100 以匹配你的 config 默认值
+python train_lite.py `
+  --data-root data_debug `
+  --output-dir outputs_debug `
+  --epochs 200 `
+  --batch-size 2 `
+  --lr 5e-4 `
+  --num-classes 2 `
+  --num-proposals 100 `
+  --csv-every 5
 ```
 
 ---

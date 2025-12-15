@@ -74,8 +74,20 @@ class SparseRCNNLite(nn.Module):
 
         self.init_proposal_features = nn.Embedding(self.num_proposals, self.hidden_dim)
         self.init_proposal_boxes = nn.Embedding(self.num_proposals, 4)
-        nn.init.constant_(self.init_proposal_boxes.weight[:, :2], 0.5)
-        nn.init.constant_(self.init_proposal_boxes.weight[:, 2:], 1.0)
+        # init_proposal_boxes 存的是归一化 cx,cy,w,h（不是 logit / 也没有 sigmoid 约束）。
+        # 如果 cx/cy 独立于 w/h 直接 U(0,1)，会产生大量越界初始框（x1<0 或 x2>1），
+        # ROIAlign/匹配都还能跑，但会显著拖慢收敛。
+        # 这里先采样 w/h，再在 [w/2, 1-w/2] 里采样中心，保证初始框大多在图内。
+        with torch.no_grad():
+            wh = self.init_proposal_boxes.weight[:, 2:]
+            wh.uniform_(0.05, 0.2)
+            half = wh * 0.5
+            centers = self.init_proposal_boxes.weight[:, :2]
+            # 避免 half==0 导致上下界相等
+            low = half.clamp(min=1e-4)
+            high = (1.0 - half).clamp(min=1e-4)
+            centers.uniform_(0.0, 1.0)
+            centers.mul_(high - low).add_(low)
 
         self.head = DynamicHeadLite(self.cfg)
 
@@ -100,7 +112,14 @@ class SparseRCNNLite(nn.Module):
                 return self._forward(images, targets)
             else:
                 preds = self._forward(images)
-                from detectron2.structures import Instances
+                try:
+                    import importlib
+                    Instances = importlib.import_module("detectron2.structures").Instances
+                except Exception as e:
+                    raise RuntimeError(
+                        "Detectron2-style inference requires detectron2 to be installed. "
+                        "Install detectron2 or use the lite inference path (infer_lite.py)."
+                    ) from e
                 results = []
                 for pred in preds:
                     inst = Instances(image_size=batched_inputs[0]["image"].shape[-2:], **pred)

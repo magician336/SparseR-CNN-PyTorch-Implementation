@@ -1,0 +1,4 @@
+train_lite.py
+> 让num-proposals参数被正确利用
+
+> 运行过拟合脚本，验证模型正确性

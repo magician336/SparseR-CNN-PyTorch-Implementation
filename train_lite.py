@@ -16,7 +16,7 @@ from torch.optim.lr_scheduler import MultiStepLR
 # Ensure root is on path to import shared modules
 sys.path.append(os.path.dirname(__file__))
 
-from sparsercnn_lite import SparseRCNNLite
+from sparsercnn_lite import SparseRCNNLite, default_sparsercnn_cfg
 from data_synth import SynthRectDataset
 
 
@@ -133,8 +133,13 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Model
-    model = SparseRCNNLite(num_classes=args.num_classes)
+    cfg = default_sparsercnn_cfg()
+    cfg.num_classes = args.num_classes
+    cfg.num_proposals = args.num_proposals
+    model = SparseRCNNLite(cfg=cfg)
     model.to(device)
+
+    print(f"Using num_proposals={model.num_proposals} num_classes={model.num_classes}")
 
     # Optimizer
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr)

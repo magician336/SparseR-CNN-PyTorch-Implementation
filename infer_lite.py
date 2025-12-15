@@ -24,11 +24,16 @@ def main():
     parser.add_argument("--nms-iou", type=float, default=0.5, help="Apply NMS with this IoU threshold (<=0 to disable)")
     parser.add_argument("--max-dets", type=int, default=50, help="Maximum number of detections to keep after NMS")
     parser.add_argument("--min-size", type=float, default=4.0, help="Filter boxes smaller than this size (pixels)")
+    parser.add_argument("--num-proposals", type=int, default=50, help="Number of learnable proposals")
     args = parser.parse_args()
 
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
 
-    model = SparseRCNNLite(num_classes=args.num_classes)
+    from sparsercnn_lite import default_sparsercnn_cfg
+    cfg = default_sparsercnn_cfg()
+    cfg.num_classes = args.num_classes
+    cfg.num_proposals = args.num_proposals
+    model = SparseRCNNLite(cfg=cfg)
     device = torch.device(args.device)
     model.to(device)
     model.eval()
@@ -71,17 +76,12 @@ def main():
     # - Else assume focal-style (no explicit bg), unless user skips bg filtering
     bg_idx = None
     if not args.skip_bg_filter:
-        max_label = int(labels_t.max().item()) if total > 0 else -1
-        if max_label >= args.num_classes:
-            bg_idx = max_label
-            print(f"Detected background label index: {bg_idx} (>= num_classes {args.num_classes})")
-            keep_bg = labels_t != bg_idx
-        else:
-            keep_bg = torch.ones_like(labels_t, dtype=torch.bool)
-            print("No explicit background detected; not filtering by label.")
+        # 强制认定最后一个类别索引为背景
+        bg_idx = args.num_classes - 1  
+        print(f"Force filtering background label index: {bg_idx}")
+        keep_bg = labels_t != bg_idx
     else:
         keep_bg = torch.ones_like(labels_t, dtype=torch.bool)
-        print("skip-bg-filter enabled; not filtering by background label.")
 
     # Apply score threshold separately for clearer debug
     keep_thr = scores_t >= args.score_thr

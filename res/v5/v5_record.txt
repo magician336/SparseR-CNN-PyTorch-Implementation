@@ -1,0 +1,400 @@
+Epoch 1 [5/5] loss: 5.3241
+Epoch 1 completed. Current LR: 0.000500
+Epoch 2 [5/5] loss: 5.5271
+Epoch 2 completed. Current LR: 0.000500
+Epoch 3 [5/5] loss: 8.8255
+Epoch 3 completed. Current LR: 0.000500
+Epoch 4 [5/5] loss: 8.8746
+Epoch 4 completed. Current LR: 0.000500
+Epoch 5 [5/5] loss: 7.2550
+Epoch 5 completed. Current LR: 0.000500
+Epoch 6 [5/5] loss: 4.3686
+Epoch 6 completed. Current LR: 0.000500
+Epoch 7 [5/5] loss: 3.6546
+Epoch 7 completed. Current LR: 0.000500
+Epoch 8 [5/5] loss: 4.0755
+Epoch 8 completed. Current LR: 0.000500
+Epoch 9 [5/5] loss: 3.7728
+Epoch 9 completed. Current LR: 0.000500
+Epoch 10 [5/5] loss: 6.1704
+Epoch 10 completed. Current LR: 0.000500
+Epoch 11 [5/5] loss: 4.4741
+Epoch 11 completed. Current LR: 0.000500
+Epoch 12 [5/5] loss: 3.8305
+Epoch 12 completed. Current LR: 0.000500
+Epoch 13 [5/5] loss: 4.8667
+Epoch 13 completed. Current LR: 0.000500
+Epoch 14 [5/5] loss: 5.6422
+Epoch 14 completed. Current LR: 0.000500
+Epoch 15 [5/5] loss: 6.1795
+Epoch 15 completed. Current LR: 0.000500
+Epoch 16 [5/5] loss: 6.1284
+Epoch 16 completed. Current LR: 0.000500
+Epoch 17 [5/5] loss: 4.9158
+Epoch 17 completed. Current LR: 0.000500
+Epoch 18 [5/5] loss: 3.8619
+Epoch 18 completed. Current LR: 0.000500
+Epoch 19 [5/5] loss: 3.4914
+Epoch 19 completed. Current LR: 0.000500
+Epoch 20 [5/5] loss: 3.8653
+Epoch 20 completed. Current LR: 0.000500
+Epoch 21 [5/5] loss: 3.8585
+Epoch 21 completed. Current LR: 0.000500
+Epoch 22 [5/5] loss: 3.0830
+Epoch 22 completed. Current LR: 0.000500
+Epoch 23 [5/5] loss: 3.5343
+Epoch 23 completed. Current LR: 0.000500
+Epoch 24 [5/5] loss: 3.6261
+Epoch 24 completed. Current LR: 0.000500
+Epoch 25 [5/5] loss: 3.1070
+Epoch 25 completed. Current LR: 0.000500
+Epoch 26 [5/5] loss: 3.3495
+Epoch 26 completed. Current LR: 0.000500
+Epoch 27 [5/5] loss: 3.3664
+Epoch 27 completed. Current LR: 0.000500
+Epoch 28 [5/5] loss: 4.7134
+Epoch 28 completed. Current LR: 0.000500
+Epoch 29 [5/5] loss: 4.1059
+Epoch 29 completed. Current LR: 0.000500
+Epoch 30 [5/5] loss: 3.5349
+Epoch 30 completed. Current LR: 0.000500
+Epoch 31 [5/5] loss: 2.9934
+Epoch 31 completed. Current LR: 0.000500
+Epoch 32 [5/5] loss: 3.3500
+Epoch 32 completed. Current LR: 0.000500
+Epoch 33 [5/5] loss: 3.5244
+Epoch 33 completed. Current LR: 0.000500
+Epoch 34 [5/5] loss: 3.1595
+Epoch 34 completed. Current LR: 0.000500
+Epoch 35 [5/5] loss: 3.2019
+Epoch 35 completed. Current LR: 0.000500
+Epoch 36 [5/5] loss: 3.5542
+Epoch 36 completed. Current LR: 0.000500
+Epoch 37 [5/5] loss: 3.2885
+Epoch 37 completed. Current LR: 0.000500
+Epoch 38 [5/5] loss: 3.6443
+Epoch 38 completed. Current LR: 0.000500
+Epoch 39 [5/5] loss: 4.8246
+Epoch 39 completed. Current LR: 0.000500
+Epoch 40 [5/5] loss: 3.7654
+Epoch 40 completed. Current LR: 0.000500
+Epoch 41 [5/5] loss: 3.5358
+Epoch 41 completed. Current LR: 0.000500
+Epoch 42 [5/5] loss: 4.4031
+Epoch 42 completed. Current LR: 0.000500
+Epoch 43 [5/5] loss: 3.7903
+Epoch 43 completed. Current LR: 0.000500
+Epoch 44 [5/5] loss: 3.8954
+Epoch 44 completed. Current LR: 0.000500
+Epoch 45 [5/5] loss: 3.9530
+Epoch 45 completed. Current LR: 0.000500
+Epoch 46 [5/5] loss: 3.4016
+Epoch 46 completed. Current LR: 0.000500
+Epoch 47 [5/5] loss: 3.6057
+Epoch 47 completed. Current LR: 0.000500
+Epoch 48 [5/5] loss: 3.3334
+Epoch 48 completed. Current LR: 0.000500
+Epoch 49 [5/5] loss: 3.4940
+Epoch 49 completed. Current LR: 0.000500
+Epoch 50 [5/5] loss: 3.3317
+Epoch 50 completed. Current LR: 0.000500
+Epoch 51 [5/5] loss: 3.0621
+Epoch 51 completed. Current LR: 0.000500
+Epoch 52 [5/5] loss: 3.2876
+Epoch 52 completed. Current LR: 0.000500
+Epoch 53 [5/5] loss: 3.3361
+Epoch 53 completed. Current LR: 0.000500
+Epoch 54 [5/5] loss: 3.4576
+Epoch 54 completed. Current LR: 0.000500
+Epoch 55 [5/5] loss: 2.8472
+Epoch 55 completed. Current LR: 0.000500
+Epoch 56 [5/5] loss: 3.3172
+Epoch 56 completed. Current LR: 0.000500
+Epoch 57 [5/5] loss: 3.4931
+Epoch 57 completed. Current LR: 0.000500
+Epoch 58 [5/5] loss: 3.3480
+Epoch 58 completed. Current LR: 0.000500
+Epoch 59 [5/5] loss: 4.7780
+Epoch 59 completed. Current LR: 0.000500
+Epoch 60 [5/5] loss: 4.2926
+Epoch 60 completed. Current LR: 0.000500
+Epoch 61 [5/5] loss: 5.0239
+Epoch 61 completed. Current LR: 0.000500
+Epoch 62 [5/5] loss: 4.3338
+Epoch 62 completed. Current LR: 0.000500
+Epoch 63 [5/5] loss: 4.4815
+Epoch 63 completed. Current LR: 0.000500
+Epoch 64 [5/5] loss: 4.5074
+Epoch 64 completed. Current LR: 0.000500
+Epoch 65 [5/5] loss: 3.6384
+Epoch 65 completed. Current LR: 0.000500
+Epoch 66 [5/5] loss: 3.7138
+Epoch 66 completed. Current LR: 0.000500
+Epoch 67 [5/5] loss: 3.6428
+Epoch 67 completed. Current LR: 0.000500
+Epoch 68 [5/5] loss: 3.9207
+Epoch 68 completed. Current LR: 0.000500
+Epoch 69 [5/5] loss: 4.2459
+Epoch 69 completed. Current LR: 0.000500
+Epoch 70 [5/5] loss: 4.6554
+Epoch 70 completed. Current LR: 0.000500
+Epoch 71 [5/5] loss: 4.5050
+Epoch 71 completed. Current LR: 0.000500
+Epoch 72 [5/5] loss: 4.0952
+Epoch 72 completed. Current LR: 0.000500
+Epoch 73 [5/5] loss: 3.4614
+Epoch 73 completed. Current LR: 0.000500
+Epoch 74 [5/5] loss: 3.1325
+Epoch 74 completed. Current LR: 0.000500
+Epoch 75 [5/5] loss: 3.8295
+Epoch 75 completed. Current LR: 0.000500
+Epoch 76 [5/5] loss: 3.0367
+Epoch 76 completed. Current LR: 0.000500
+Epoch 77 [5/5] loss: 3.0925
+Epoch 77 completed. Current LR: 0.000500
+Epoch 78 [5/5] loss: 2.9951
+Epoch 78 completed. Current LR: 0.000500
+Epoch 79 [5/5] loss: 3.3795
+Epoch 79 completed. Current LR: 0.000500
+Epoch 80 [5/5] loss: 2.9247
+Epoch 80 completed. Current LR: 0.000500
+Epoch 81 [5/5] loss: 3.1572
+Epoch 81 completed. Current LR: 0.000500
+Epoch 82 [5/5] loss: 2.8827
+Epoch 82 completed. Current LR: 0.000500
+Epoch 83 [5/5] loss: 2.9284
+Epoch 83 completed. Current LR: 0.000500
+Epoch 84 [5/5] loss: 3.2252
+Epoch 84 completed. Current LR: 0.000500
+Epoch 85 [5/5] loss: 4.2450
+Epoch 85 completed. Current LR: 0.000500
+Epoch 86 [5/5] loss: 4.3412
+Epoch 86 completed. Current LR: 0.000500
+Epoch 87 [5/5] loss: 3.4767
+Epoch 87 completed. Current LR: 0.000500
+Epoch 88 [5/5] loss: 3.9915
+Epoch 88 completed. Current LR: 0.000500
+Epoch 89 [5/5] loss: 4.0660
+Epoch 89 completed. Current LR: 0.000500
+Epoch 90 [5/5] loss: 3.8058
+Epoch 90 completed. Current LR: 0.000500
+Epoch 91 [5/5] loss: 3.9542
+Epoch 91 completed. Current LR: 0.000500
+Epoch 92 [5/5] loss: 3.6781
+Epoch 92 completed. Current LR: 0.000500
+Epoch 93 [5/5] loss: 2.8038
+Epoch 93 completed. Current LR: 0.000500
+Epoch 94 [5/5] loss: 4.2240
+Epoch 94 completed. Current LR: 0.000500
+Epoch 95 [5/5] loss: 3.5965
+Epoch 95 completed. Current LR: 0.000500
+Epoch 96 [5/5] loss: 3.1165
+Epoch 96 completed. Current LR: 0.000500
+Epoch 97 [5/5] loss: 4.4171
+Epoch 97 completed. Current LR: 0.000500
+Epoch 98 [5/5] loss: 5.4525
+Epoch 98 completed. Current LR: 0.000500
+Epoch 99 [5/5] loss: 4.4781
+Epoch 99 completed. Current LR: 0.000500
+Epoch 100 [5/5] loss: 4.6339
+Epoch 100 completed. Current LR: 0.000500
+Epoch 101 [5/5] loss: 5.5592
+Epoch 101 completed. Current LR: 0.000500
+Epoch 102 [5/5] loss: 5.9354
+Epoch 102 completed. Current LR: 0.000500
+Epoch 103 [5/5] loss: 5.2149
+Epoch 103 completed. Current LR: 0.000500
+Epoch 104 [5/5] loss: 4.8772
+Epoch 104 completed. Current LR: 0.000500
+Epoch 105 [5/5] loss: 5.0207
+Epoch 105 completed. Current LR: 0.000500
+Epoch 106 [5/5] loss: 4.2282
+Epoch 106 completed. Current LR: 0.000500
+Epoch 107 [5/5] loss: 3.7318
+Epoch 107 completed. Current LR: 0.000500
+Epoch 108 [5/5] loss: 4.1575
+Epoch 108 completed. Current LR: 0.000500
+Epoch 109 [5/5] loss: 3.7356
+Epoch 109 completed. Current LR: 0.000500
+Epoch 110 [5/5] loss: 3.4765
+Epoch 110 completed. Current LR: 0.000500
+Epoch 111 [5/5] loss: 3.0941
+Epoch 111 completed. Current LR: 0.000500
+Epoch 112 [5/5] loss: 3.2355
+Epoch 112 completed. Current LR: 0.000500
+Epoch 113 [5/5] loss: 3.5211
+Epoch 113 completed. Current LR: 0.000500
+Epoch 114 [5/5] loss: 3.2509
+Epoch 114 completed. Current LR: 0.000500
+Epoch 115 [5/5] loss: 3.0484
+Epoch 115 completed. Current LR: 0.000500
+Epoch 116 [5/5] loss: 2.9351
+Epoch 116 completed. Current LR: 0.000500
+Epoch 117 [5/5] loss: 2.7063
+Epoch 117 completed. Current LR: 0.000500
+Epoch 118 [5/5] loss: 2.9344
+Epoch 118 completed. Current LR: 0.000500
+Epoch 119 [5/5] loss: 3.6305
+Epoch 119 completed. Current LR: 0.000500
+Epoch 120 [5/5] loss: 2.6601
+Epoch 120 completed. Current LR: 0.000500
+Epoch 121 [5/5] loss: 3.6243
+Epoch 121 completed. Current LR: 0.000500
+Epoch 122 [5/5] loss: 3.3089
+Epoch 122 completed. Current LR: 0.000500
+Epoch 123 [5/5] loss: 3.0363
+Epoch 123 completed. Current LR: 0.000500
+Epoch 124 [5/5] loss: 2.8284
+Epoch 124 completed. Current LR: 0.000500
+Epoch 125 [5/5] loss: 2.9465
+Epoch 125 completed. Current LR: 0.000500
+Epoch 126 [5/5] loss: 4.1308
+Epoch 126 completed. Current LR: 0.000500
+Epoch 127 [5/5] loss: 4.7191
+Epoch 127 completed. Current LR: 0.000500
+Epoch 128 [5/5] loss: 6.1400
+Epoch 128 completed. Current LR: 0.000500
+Epoch 129 [5/5] loss: 5.3429
+Epoch 129 completed. Current LR: 0.000500
+Epoch 130 [5/5] loss: 3.2485
+Epoch 130 completed. Current LR: 0.000500
+Epoch 131 [5/5] loss: 3.6070
+Epoch 131 completed. Current LR: 0.000500
+Epoch 132 [5/5] loss: 2.8102
+Epoch 132 completed. Current LR: 0.000500
+Epoch 133 [5/5] loss: 3.3990
+Epoch 133 completed. Current LR: 0.000500
+Epoch 134 [5/5] loss: 3.5860
+Epoch 134 completed. Current LR: 0.000500
+Epoch 135 [5/5] loss: 3.9710
+Epoch 135 completed. Current LR: 0.000500
+Epoch 136 [5/5] loss: 3.2903
+Epoch 136 completed. Current LR: 0.000500
+Epoch 137 [5/5] loss: 3.7501
+Epoch 137 completed. Current LR: 0.000500
+Epoch 138 [5/5] loss: 3.4845
+Epoch 138 completed. Current LR: 0.000500
+Epoch 139 [5/5] loss: 3.5921
+Epoch 139 completed. Current LR: 0.000500
+Epoch 140 [5/5] loss: 3.2573
+Epoch 140 completed. Current LR: 0.000500
+Epoch 141 [5/5] loss: 4.2865
+Epoch 141 completed. Current LR: 0.000500
+Epoch 142 [5/5] loss: 4.2877
+Epoch 142 completed. Current LR: 0.000500
+Epoch 143 [5/5] loss: 3.4468
+Epoch 143 completed. Current LR: 0.000500
+Epoch 144 [5/5] loss: 3.5145
+Epoch 144 completed. Current LR: 0.000500
+Epoch 145 [5/5] loss: 3.4688
+Epoch 145 completed. Current LR: 0.000500
+Epoch 146 [5/5] loss: 3.4736
+Epoch 146 completed. Current LR: 0.000500
+Epoch 147 [5/5] loss: 4.8486
+Epoch 147 completed. Current LR: 0.000500
+Epoch 148 [5/5] loss: 4.2983
+Epoch 148 completed. Current LR: 0.000500
+Epoch 149 [5/5] loss: 2.8443
+Epoch 149 completed. Current LR: 0.000050
+Epoch 150 [5/5] loss: 3.0338
+Epoch 150 completed. Current LR: 0.000050
+Epoch 151 [5/5] loss: 2.9982
+Epoch 151 completed. Current LR: 0.000050
+Epoch 152 [5/5] loss: 3.1991
+Epoch 152 completed. Current LR: 0.000050
+Epoch 153 [5/5] loss: 3.0762
+Epoch 153 completed. Current LR: 0.000050
+Epoch 154 [5/5] loss: 3.0556
+Epoch 154 completed. Current LR: 0.000050
+Epoch 155 [5/5] loss: 2.8605
+Epoch 155 completed. Current LR: 0.000050
+Epoch 156 [5/5] loss: 2.5331
+Epoch 156 completed. Current LR: 0.000050
+Epoch 157 [5/5] loss: 2.9003
+Epoch 157 completed. Current LR: 0.000050
+Epoch 158 [5/5] loss: 3.0163
+Epoch 158 completed. Current LR: 0.000050
+Epoch 159 [5/5] loss: 3.3137
+Epoch 159 completed. Current LR: 0.000050
+Epoch 160 [5/5] loss: 3.2156
+Epoch 160 completed. Current LR: 0.000050
+Epoch 161 [5/5] loss: 3.0624
+Epoch 161 completed. Current LR: 0.000050
+Epoch 162 [5/5] loss: 3.2342
+Epoch 162 completed. Current LR: 0.000050
+Epoch 163 [5/5] loss: 3.2727
+Epoch 163 completed. Current LR: 0.000050
+Epoch 164 [5/5] loss: 3.1960
+Epoch 164 completed. Current LR: 0.000050
+Epoch 165 [5/5] loss: 2.9180
+Epoch 165 completed. Current LR: 0.000050
+Epoch 166 [5/5] loss: 3.0951
+Epoch 166 completed. Current LR: 0.000050
+Epoch 167 [5/5] loss: 2.9809
+Epoch 167 completed. Current LR: 0.000050
+Epoch 168 [5/5] loss: 2.4929
+Epoch 168 completed. Current LR: 0.000050
+Epoch 169 [5/5] loss: 2.7688
+Epoch 169 completed. Current LR: 0.000050
+Epoch 170 [5/5] loss: 2.8775
+Epoch 170 completed. Current LR: 0.000050
+Epoch 171 [5/5] loss: 3.4908
+Epoch 171 completed. Current LR: 0.000050
+Epoch 172 [5/5] loss: 2.7248
+Epoch 172 completed. Current LR: 0.000050
+Epoch 173 [5/5] loss: 2.7597
+Epoch 173 completed. Current LR: 0.000050
+Epoch 174 [5/5] loss: 3.2605
+Epoch 174 completed. Current LR: 0.000050
+Epoch 175 [5/5] loss: 3.1843
+Epoch 175 completed. Current LR: 0.000050
+Epoch 176 [5/5] loss: 3.0864
+Epoch 176 completed. Current LR: 0.000050
+Epoch 177 [5/5] loss: 2.7475
+Epoch 177 completed. Current LR: 0.000050
+Epoch 178 [5/5] loss: 3.0611
+Epoch 178 completed. Current LR: 0.000050
+Epoch 179 [5/5] loss: 2.7849
+Epoch 179 completed. Current LR: 0.000005
+Epoch 180 [5/5] loss: 2.9268
+Epoch 180 completed. Current LR: 0.000005
+Epoch 181 [5/5] loss: 3.3712
+Epoch 181 completed. Current LR: 0.000005
+Epoch 182 [5/5] loss: 3.2057
+Epoch 182 completed. Current LR: 0.000005
+Epoch 183 [5/5] loss: 3.1536
+Epoch 183 completed. Current LR: 0.000005
+Epoch 184 [5/5] loss: 2.6603
+Epoch 184 completed. Current LR: 0.000005
+Epoch 185 [5/5] loss: 3.0216
+Epoch 185 completed. Current LR: 0.000005
+Epoch 186 [5/5] loss: 3.1379
+Epoch 186 completed. Current LR: 0.000005
+Epoch 187 [5/5] loss: 3.1884
+Epoch 187 completed. Current LR: 0.000005
+Epoch 188 [5/5] loss: 2.8991
+Epoch 188 completed. Current LR: 0.000005
+Epoch 189 [5/5] loss: 2.9333
+Epoch 189 completed. Current LR: 0.000005
+Epoch 190 [5/5] loss: 2.7766
+Epoch 190 completed. Current LR: 0.000005
+Epoch 191 [5/5] loss: 2.7429
+Epoch 191 completed. Current LR: 0.000005
+Epoch 192 [5/5] loss: 3.0604
+Epoch 192 completed. Current LR: 0.000005
+Epoch 193 [5/5] loss: 2.7352
+Epoch 193 completed. Current LR: 0.000005
+Epoch 194 [5/5] loss: 3.0324
+Epoch 194 completed. Current LR: 0.000005
+Epoch 195 [5/5] loss: 2.8841
+Epoch 195 completed. Current LR: 0.000005
+Epoch 196 [5/5] loss: 3.0860
+Epoch 196 completed. Current LR: 0.000005
+Epoch 197 [5/5] loss: 2.7296
+Epoch 197 completed. Current LR: 0.000005
+Epoch 198 [5/5] loss: 2.7671
+Epoch 198 completed. Current LR: 0.000005
+Epoch 199 [5/5] loss: 2.6230
+Epoch 199 completed. Current LR: 0.000005
+Epoch 200 [5/5] loss: 3.2563
+Epoch 200 completed. Current LR: 0.000005

@@ -115,9 +115,11 @@ dmypy.json
 
 # Data files (large datasets, not to be committed)
 data/
+data_debug/
 
 # Output files (models, logs, checkpoints)
 outputs/model_final.pth
+outputs_debug/
 
 # IDE files
 .vscode/

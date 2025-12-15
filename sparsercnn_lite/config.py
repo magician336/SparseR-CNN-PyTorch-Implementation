@@ -20,10 +20,10 @@ class SparseRCNNLiteCfg:
     num_cls: int = 3
     num_reg: int = 3
     # Loss weights
-    class_weight: float = 1.0
+    class_weight: float = 2.0
     l1_weight: float = 5.0
     giou_weight: float = 2.0
-    no_object_weight: float = 1.0
+    no_object_weight: float = 0.2
     deep_supervision: bool = True
     # Input
     pixel_mean: tuple = (123.675, 116.28, 103.53)  # ImageNet
