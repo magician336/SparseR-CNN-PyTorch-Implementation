@@ -44,6 +44,8 @@ python data_synth.py `
 ### 训练（Lite）
 
 - 纯 PyTorch 训练脚本：`train_lite.py`
+> 已将no_object_weight由0.1设置为1.0
+> 添加学习率衰减
 
 ```powershell
 python train_lite.py `

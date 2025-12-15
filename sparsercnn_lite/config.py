@@ -23,7 +23,7 @@ class SparseRCNNLiteCfg:
     class_weight: float = 1.0
     l1_weight: float = 5.0
     giou_weight: float = 2.0
-    no_object_weight: float = 0.1
+    no_object_weight: float = 1.0
     deep_supervision: bool = True
     # Input
     pixel_mean: tuple = (123.675, 116.28, 103.53)  # ImageNet

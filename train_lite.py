@@ -1,4 +1,5 @@
 import argparse
+from math import floor
 import os
 import sys
 import csv
@@ -9,8 +10,11 @@ import torch
 from torch.utils.data import DataLoader
 import torchvision.transforms as T
 
+# 添加MultiStepLR调度器
+from torch.optim.lr_scheduler import MultiStepLR
+
 # Ensure root is on path to import shared modules
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+sys.path.append(os.path.dirname(__file__))
 
 from sparsercnn_lite import SparseRCNNLite
 from data_synth import SynthRectDataset
@@ -55,13 +59,13 @@ def train_one_epoch(model: SparseRCNNLite, optimizer: torch.optim.Optimizer,
     running_parts = {}
     t0 = time.time()
     for i, (images, targets) in enumerate(data_loader):
-        images = [_to_tensor_image(img).to(device) for img in images]
-        targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
+        images = [_to_tensor_image(img).to(device, non_blocking=True) for img in images]
+        targets = [{k: v.to(device, non_blocking=True) for k, v in t.items()} for t in targets]
 
         loss_dict = model._forward(images, targets)
         loss = sum(loss for loss in loss_dict.values())
 
-        optimizer.zero_grad()
+        optimizer.zero_grad(set_to_none=True)
         loss.backward()
         optimizer.step()
 
@@ -135,6 +139,26 @@ def main():
     # Optimizer
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr)
 
+    # LR scheduler (MultiStepLR): decay at ~75% and ~90% of total epochs.
+    # NOTE: We call scheduler.step() at the END of each epoch, so an epoch number E
+    # corresponds to scheduler milestone (E-1).
+    scheduler = None
+    if args.epochs >= 2:
+        desired_epochs = [
+            int(round(args.epochs * 0.75)),
+            int(round(args.epochs * 0.90)),
+        ]
+        # clamp to [1, epochs-1] and unique
+        desired_epochs = sorted({max(1, min(args.epochs - 1, e)) for e in desired_epochs})
+        milestones = [e - 1 for e in desired_epochs]
+        if len(milestones) > 0:
+            scheduler = MultiStepLR(optimizer, milestones=milestones, gamma=0.1)
+            print(f"MultiStepLR enabled. Decay after epochs: {desired_epochs} (milestones={milestones}, gamma=0.1)")
+        else:
+            print("MultiStepLR disabled (no valid milestones).")
+    else:
+        print("MultiStepLR disabled (epochs < 2).")
+
     # DataLoaders
     train_loader = build_dataloader(args.data_root, "train", args.batch_size, args.num_workers)
 
@@ -150,8 +174,8 @@ def main():
                 # Peek one batch to derive header keys
                 model.train()
                 images, targets = next(iter(train_loader))
-                images = [_to_tensor_image(img).to(device) for img in images]
-                targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
+                images = [_to_tensor_image(img).to(device, non_blocking=True) for img in images]
+                targets = [{k: v.to(device, non_blocking=True) for k, v in t.items()} for t in targets]
                 with torch.no_grad():
                     loss_dict = model._forward(images, targets)
                 part_keys = sorted(loss_dict.keys())
@@ -183,6 +207,13 @@ def main():
                 csv_writer=_EveryNWriter(csv_writer, every=max(1, int(args.csv_every))),
                 csv_flush=True,
             )
+
+            # 每个 epoch 结束后更新学习率
+            if scheduler is not None:
+                scheduler.step()
+            current_lr = optimizer.param_groups[0]["lr"]
+            print(f"Epoch {epoch} completed. Current LR: {current_lr:.6f}")
+
             csv_f.flush()
     finally:
         try:
