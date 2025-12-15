@@ -67,6 +67,9 @@ def train_one_epoch(model: SparseRCNNLite, optimizer: torch.optim.Optimizer,
 
         optimizer.zero_grad(set_to_none=True)
         loss.backward()
+
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+
         optimizer.step()
 
         running += loss.item()

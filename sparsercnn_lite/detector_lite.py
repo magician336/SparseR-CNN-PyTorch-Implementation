@@ -33,6 +33,12 @@ class BackboneFPNLite(nn.Module):
         self.layer1 = backbone.layer1  # stride 4
         self.layer2 = backbone.layer2  # stride 8
         self.layer3 = backbone.layer3  # stride 16
+
+        for p in self.stem.parameters(): p.requires_grad = False
+        for p in self.layer1.parameters(): p.requires_grad = False
+        for p in self.layer2.parameters(): p.requires_grad = False
+        for p in self.layer3.parameters(): p.requires_grad = False
+
         self.out_conv = nn.Conv2d(1024, out_channels, kernel_size=1)
         self.stride = 16
 

@@ -125,9 +125,9 @@ python data_synth.py --make-data --out data_debug --num-train 10 --num-val 2
 python train_lite.py `
   --data-root data_debug `
   --output-dir outputs_debug `
-  --epochs 200 `
+  --epochs 100 `
   --batch-size 2 `
-  --lr 5e-4 `
+  --lr 1e-5 `
   --num-classes 2 `
   --num-proposals 100 `
   --csv-every 5
