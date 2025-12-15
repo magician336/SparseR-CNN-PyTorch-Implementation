@@ -21,8 +21,8 @@ class SparseRCNNLiteCfg:
     num_reg: int = 3
     # Loss weights
     class_weight: float = 2.0
-    l1_weight: float = 5.0
-    giou_weight: float = 2.0
+    l1_weight: float = 10.0
+    giou_weight: float = 5.0
     no_object_weight: float = 0.2
     deep_supervision: bool = True
     # Input

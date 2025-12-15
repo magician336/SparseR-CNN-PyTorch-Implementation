@@ -1,0 +1,4 @@
+修改了detector_lite.py
+> 骨干网络冻结
+
+>  增加batch_size，适度回调LR

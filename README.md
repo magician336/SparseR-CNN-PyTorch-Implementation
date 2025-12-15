@@ -118,19 +118,25 @@ python infer_lite.py `
 ## 过拟合脚本
 ```powershell
 # 1. 先生成一个小型的过拟合数据集 (仅10张图)
-python data_synth.py --make-data --out data_debug --num-train 10 --num-val 2
+python data_synth.py `
+  --make-data `
+  --out data_debug `
+  --num-train 16 `
+  --num-val 4 `
+  --img-size 640 `
+  --max-rects 3
 
 # 2. 针对这 10 张图进行疯狂训练 (500轮，让它背下来)
 # 注意：这里 num-proposals 设为 100 以匹配你的 config 默认值
 python train_lite.py `
   --data-root data_debug `
   --output-dir outputs_debug `
-  --epochs 100 `
-  --batch-size 2 `
-  --lr 1e-5 `
+  --epochs 30 `
+  --batch-size 8 `
+  --lr 5e-5 `
   --num-classes 2 `
   --num-proposals 100 `
-  --csv-every 5
+  --csv-every 2
 ```
 
 ---
