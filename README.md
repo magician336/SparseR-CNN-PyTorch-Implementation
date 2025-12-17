@@ -141,6 +141,21 @@ python train_lite.py `
 
 ---
 
+## 两个训练样本过拟合脚本
+```powershell
+python train_lite.py `
+--data-root data_double `
+--output-dir outputs_double `
+  --epochs 500 `
+  --batch-size 2 `
+  --lr 5e-5 `
+  --num-classes 2 `
+  --num-proposals 100 `
+  --csv-every 10
+```
+
+---
+
 ## Detectron2 版本（D2）
 
 D2 版提供完整的配置与训练流程，适合更丰富的功能与评估。确保在安装有 Detectron2 的环境中运行。

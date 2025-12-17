@@ -13,7 +13,6 @@ import torchvision.transforms as T
 # 添加MultiStepLR调度器
 from torch.optim.lr_scheduler import MultiStepLR
 
-# Ensure root is on path to import shared modules
 sys.path.append(os.path.dirname(__file__))
 
 from sparsercnn_lite import SparseRCNNLite, default_sparsercnn_cfg
@@ -26,7 +25,6 @@ def collate_fn(batch: Tuple):
 
 
 def build_dataloader(data_root: str, split: str, batch_size: int, num_workers: int = 2):
-    # SynthRectDataset does not accept a transform argument; convert to tensor later
     ds = SynthRectDataset(data_root, split=split)
     loader = DataLoader(ds, batch_size=batch_size, shuffle=(split == "train"),
                         num_workers=num_workers, collate_fn=collate_fn)
@@ -34,7 +32,6 @@ def build_dataloader(data_root: str, split: str, batch_size: int, num_workers: i
 
 
 def _to_tensor_image(x):
-    # Convert dataset image to torch tensor in [0,1], shape [C,H,W]
     if isinstance(x, torch.Tensor):
         return x.float()
     try:
@@ -74,7 +71,6 @@ def train_one_epoch(model: SparseRCNNLite, optimizer: torch.optim.Optimizer,
 
         running += loss.item()
 
-        # Track component losses
         parts = {}
         for k, v in loss_dict.items():
             try:
@@ -83,7 +79,6 @@ def train_one_epoch(model: SparseRCNNLite, optimizer: torch.optim.Optimizer,
                 parts[k] = float(v)
             running_parts[k] = running_parts.get(k, 0.0) + parts[k]
 
-        # CSV logging per-iteration
         if csv_writer is not None:
             lr = optimizer.param_groups[0].get("lr", None)
             row = {
@@ -96,14 +91,13 @@ def train_one_epoch(model: SparseRCNNLite, optimizer: torch.optim.Optimizer,
                 "lr": float(lr) if lr is not None else "",
                 "elapsed_sec": round(time.time() - t0, 4),
             }
-            # Add parts and running averages
             for k in sorted(parts.keys()):
                 row[k] = parts[k]
                 row[f"avg_{k}"] = running_parts[k] / (i + 1)
             csv_writer.writerow(row)
             if csv_flush:
                 try:
-                    csv_writer._writerows  # type: ignore[attr-defined]
+                    csv_writer._writerows  
                 except Exception:
                     pass
 

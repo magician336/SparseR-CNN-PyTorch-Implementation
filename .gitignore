@@ -117,12 +117,14 @@ dmypy.json
 data/
 data_debug/
 data_single/
+data_double/
 
 
 # Output files (models, logs, checkpoints)
 outputs/model_final.pth
 outputs_debug/
 outputs_single/
+outputs_double/
 
 # IDE files
 .vscode/
